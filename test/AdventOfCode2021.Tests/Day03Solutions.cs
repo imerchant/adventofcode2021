@@ -5,14 +5,15 @@ namespace AdventOfCode2021.Tests;
 public class Day03Solutions
 {
     [Fact]
-    public void Puzzle1_FindPowerConsumption()
+    public void Puzzle1And2_FindPowerConsumption_AndLifeSupportRating()
     {
         var report = new DiagnosticReport(Input.Day03);
 
         report.PowerConsumption.Should().Be(1458194);
+        report.LifeSupportRating.Should().Be(2829354);
     }
 
-    public const string Puzzle1Example =
+    public const string PuzzleExample =
 @"00100
 11110
 10110
@@ -27,12 +28,16 @@ public class Day03Solutions
 01010";
 
     [Fact]
-    public void Puzzle1Example_FindPowerConsumption()
+    public void PuzzleExample_FindPowerConsumption_AndLifeSupportRating()
     {
-        var report = new DiagnosticReport(Puzzle1Example);
+        var report = new DiagnosticReport(PuzzleExample);
 
         report.GammaRate.Should().Be(22);
         report.EpsilonRate.Should().Be(9);
         report.PowerConsumption.Should().Be(198);
+
+        report.OxygenGeneratorRating.Should().Be(23);
+        report.CO2ScrubberRating.Should().Be(10);
+        report.LifeSupportRating.Should().Be(230);
     }
 }
