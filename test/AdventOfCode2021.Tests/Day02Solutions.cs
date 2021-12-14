@@ -12,7 +12,15 @@ public class Day02Solutions
         submarine.Result.Should().Be(1989265);
     }
 
-    public const string Puzzle1Example =
+    [Fact]
+    public void Puzzle2_FindsResult()
+    {
+        var submarine = new Submarine2(Input.Day02);
+
+        submarine.Result.Should().Be(2089174012);
+    }
+
+    public const string PuzzleExample =
 @"forward 5
 down 5
 forward 8
@@ -23,8 +31,16 @@ forward 2";
     [Fact]
     public void Puzzle1Example_FindsResult()
     {
-        var submarine = new Submarine(Puzzle1Example);
+        var submarine = new Submarine(PuzzleExample);
 
         submarine.Result.Should().Be(150);
+    }
+
+    [Fact]
+    public void Puzzle2Example_FindsResult()
+    {
+        var submarine = new Submarine2(PuzzleExample);
+
+        submarine.Result.Should().Be(900);
     }
 }

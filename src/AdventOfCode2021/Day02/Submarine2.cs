@@ -1,6 +1,6 @@
 namespace AdventOfCode2021.Day02;
 
-public class Submarine
+public class Submarine2
 {
     enum Direction
     {
@@ -11,10 +11,11 @@ public class Submarine
 
     public int Position { get; private set; }
     public int Depth { get; private set; }
+    public int Aim { get; private set; }
 
     public int Result => Position * Depth;
 
-    public Submarine(string input)
+    public Submarine2(string input)
     {
         foreach (var instruction in input.SplitLines())
         {
@@ -30,7 +31,12 @@ public class Submarine
         }
     }
 
-    public void Forward(int units) => Position += units;
-    public void Up(int units) => Depth -= units;
-    public void Down(int units) => Depth += units;
+    public void Forward(int units)
+    {
+        Position += units;
+        Depth += units * Aim;
+    }
+
+    public void Up(int units) => Aim -= units;
+    public void Down(int units) => Aim += units;
 }
