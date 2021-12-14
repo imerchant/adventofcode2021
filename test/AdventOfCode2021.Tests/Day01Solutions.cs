@@ -8,11 +8,12 @@ namespace AdventOfCode2021.Tests;
 public class Day01Solutions
 {
     [Fact]
-    public void Puzzle1_CountIncreases()
+    public void Puzzle1And2_CountIncreases()
     {
         var depths = new Depths(Input.Day01);
 
-        depths.Increases.Should().Be(1676);
+        depths.SingleWindowIncreases.Should().Be(1676);
+        depths.SlidingWindowIncreases.Should().Be(1706);
     }
 
     public const string Puzzle1Example =
@@ -28,10 +29,11 @@ public class Day01Solutions
 263";
 
     [Fact]
-    public void Puzzle1_ExampleCountsIncreases()
+    public void Puzzle1And2_ExampleCountsIncreases()
     {
         var depths = new Depths(Puzzle1Example);
 
-        depths.Increases.Should().Be(7);
+        depths.SingleWindowIncreases.Should().Be(7);
+        depths.SlidingWindowIncreases.Should().Be(5);
     }
 }

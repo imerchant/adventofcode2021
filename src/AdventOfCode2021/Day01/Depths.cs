@@ -4,18 +4,31 @@ public class Depths
 {
     public List<int> Measurements { get; }
 
-    public int Increases { get; }
+    public int SingleWindowIncreases { get; }
+    public int SlidingWindowIncreases { get; }
 
     public Depths(string input)
     {
         Measurements = input.SplitLines().Select(int.Parse).ToList();
 
-        var increases = 0;
-        for (var k = 1; k < Measurements.Count; ++k)
+        SingleWindowIncreases = CountIncreases(Measurements);
+
+        var slidingMeasurements = new List<int>();
+        for (var k = 0; k < Measurements.Count - 2; ++k)
         {
-            if (Measurements[k - 1] < Measurements[k])
-                increases++;
+            slidingMeasurements.Add(Measurements[k] + Measurements[k + 1] + Measurements[k + 2]);
         }
-        Increases = increases;
+        SlidingWindowIncreases = CountIncreases(slidingMeasurements);
+
+        int CountIncreases(List<int> measurements)
+        {
+            var increases = 0;
+            for (var k = 1; k < measurements.Count; ++k)
+            {
+                if (measurements[k - 1] < measurements[k])
+                    increases++;
+            }
+            return increases;
+        }
     }
 }

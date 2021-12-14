@@ -15,8 +15,12 @@ public class DefaultDictionary<TKey, TValue> : IDictionary<TKey, TValue> where T
     {
         get
         {
-            TryGetValue(key, out TValue value);
-            return value;
+            var containsKey = _backingDictionary.ContainsKey(key);
+            if (!containsKey)
+            {
+                _backingDictionary[key] = _defaultFactory(key);
+            }
+            return _backingDictionary[key];
         }
         set => _backingDictionary[key] = value;
     }
@@ -92,7 +96,7 @@ public class DefaultDictionary<TKey, TValue> : IDictionary<TKey, TValue> where T
         return ((IDictionary<TKey, TValue>)_backingDictionary).Remove(item);
     }
 
-    public bool TryGetValue(TKey key, out TValue value)
+    public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
     {
         var result = _backingDictionary.TryGetValue(key, out value);
         if (!result)
