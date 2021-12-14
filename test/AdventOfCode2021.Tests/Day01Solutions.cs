@@ -1,7 +1,4 @@
 using AdventOfCode2021.Day01;
-using AdventOfCode2021.Inputs;
-using FluentAssertions;
-using Xunit;
 
 namespace AdventOfCode2021.Tests;
 
