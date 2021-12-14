@@ -4,7 +4,6 @@ namespace AdventOfCode2021.Tests;
 
 public class Day04Solutions
 {
-
     [Fact]
     public void Puzzle1_FindResultFromCompleteBoard()
     {
@@ -20,9 +19,24 @@ public class Day04Solutions
         result.Should().Be(55770);
     }
 
-    public const string Puzzle1ExampleDrawNumbers = "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1";
+    [Fact]
+    public void Puzzle2_FindResultOfLastCompletedBoard()
+    {
+        var bingo = new Bingo(Input.Day04.DrawNumbers, Input.Day04.Boards);
 
-    public const string Puzzle1ExampleBoards =
+        int? result = null;
+        do
+        {
+            result = bingo.Draw(removeCompletedBoards: true);
+        }
+        while (result is null || bingo.Boards.Any());
+
+        result.Should().Be(2980);
+    }
+
+    public const string PuzzleExampleDrawNumbers = "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1";
+
+    public const string PuzzleExampleBoards =
 @"22 13 17 11  0
  8  2 23  4 24
 21  9 14 16  7
@@ -42,9 +56,9 @@ public class Day04Solutions
  2  0 12  3  7";
 
     [Fact]
-    public void Puzzle1Example_CountsBoards_AndFindsResult()
+    public void Puzzle1_Example_CountsBoards_AndFindsResult()
     {
-        var bingo = new Bingo(Puzzle1ExampleDrawNumbers, Puzzle1ExampleBoards);
+        var bingo = new Bingo(PuzzleExampleDrawNumbers, PuzzleExampleBoards);
 
         bingo.Boards.Should().SatisfyRespectively(
             board => board.Cells.Should().HaveCount(25),
@@ -60,5 +74,20 @@ public class Day04Solutions
         while (result is null);
 
         result.Should().Be(4512);
+    }
+
+    [Fact]
+    public void Puzzle2_Example_FindResultOfLastCompletedBoard()
+    {
+        var bingo = new Bingo(PuzzleExampleDrawNumbers, PuzzleExampleBoards);
+
+        int? result = null;
+        do
+        {
+            result = bingo.Draw(removeCompletedBoards: true);
+        }
+        while (result is null || bingo.Boards.Any());
+
+        result.Should().Be(1924);
     }
 }

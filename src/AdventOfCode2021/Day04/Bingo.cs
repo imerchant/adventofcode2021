@@ -18,7 +18,7 @@ public class Bingo
         Boards = BoardRegex.Matches(boards).Select(x => new Board(x.Groups["content"].Value)).ToList();
     }
 
-    public int? Draw()
+    public int? Draw(bool removeCompletedBoards = false)
     {
         var draw = DrawNumbers[_drawIndex];
 
@@ -33,6 +33,11 @@ public class Bingo
         if (completeBoard is null)
         {
             return null;
+        }
+
+        if (removeCompletedBoards)
+        {
+            Boards.RemoveAll(x => x.IsComplete);
         }
 
         return completeBoard.Score * draw;
