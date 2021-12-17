@@ -14,14 +14,15 @@ public class Day05Solutions
     }
 
     [Fact]
-    public void Puzzle1_FindStraightOverlaps()
+    public void Puzzle1And2_FindOverlaps()
     {
         var vents = new Vents(Input.Day05);
 
         vents.StraightOverlaps.Should().Be(5147);
+        vents.AllOverlaps.Should().Be(16925);
     }
 
-    public const string Puzzle1Example =
+    public const string PuzzleExample =
 @"0,9 -> 5,9
 8,0 -> 0,8
 9,4 -> 3,4
@@ -36,7 +37,7 @@ public class Day05Solutions
     [Fact]
     public void Puzzle1Example_FindOverlaps()
     {
-        var vents = new Vents(Puzzle1Example);
+        var vents = new Vents(PuzzleExample);
 
         var builder = new StringBuilder(Environment.NewLine);
         for (var k = 0; k <= 9; ++k)
@@ -52,5 +53,26 @@ public class Day05Solutions
         _output.WriteLine(builder.ToString());
 
         vents.StraightOverlaps.Should().Be(5);
+    }
+
+    [Fact]
+    public void PuzzleExample_FindAllOverlaps()
+    {
+        var vents = new Vents(PuzzleExample);
+
+        var builder = new StringBuilder(Environment.NewLine);
+        for (var k = 0; k <= 9; ++k)
+        {
+            for (var j = 0; j <= 9; ++j)
+            {
+                var val = vents.AllVents[(k, j)];
+                builder.Append(val == 0 ? "." : $"{val}");
+            }
+            builder.AppendLine();
+        }
+
+        _output.WriteLine(builder.ToString());
+
+        vents.AllOverlaps.Should().Be(12);
     }
 }

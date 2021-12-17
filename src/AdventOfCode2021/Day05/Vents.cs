@@ -5,11 +5,14 @@ public class Vents
     private static readonly Regex VentsRegex = new Regex(@"(?'x1'\d+),(?'y1'\d+) -> (?'x2'\d+),(?'y2'\d+)", RegexOptions.Compiled);
 
     public IDictionary<(int X, int Y), int> StraightLineVents { get; }
+    public IDictionary<(int X, int Y), int> AllVents { get; }
     public int StraightOverlaps => StraightLineVents.Count(x => x.Value >= 2);
+    public int AllOverlaps => AllVents.Count(x => x.Value >= 2);
 
     public Vents(string input)
     {
         StraightLineVents = new DefaultDictionary<(int X, int Y), int>(() => 0);
+        AllVents = new DefaultDictionary<(int X, int Y), int>(() => 0);
 
         var vents = VentsRegex
             .Matches(input)
@@ -32,6 +35,7 @@ public class Vents
                 for (var k = min; k <= max; ++k)
                 {
                     StraightLineVents[(k, vent.X1)]++;
+                    AllVents[(k, vent.X1)]++;
                 }
             }
             else if (vent.Y1 == vent.Y2)
@@ -42,6 +46,40 @@ public class Vents
                 for (var k = min; k <= max; ++k)
                 {
                     StraightLineVents[(vent.Y1, k)]++;
+                    AllVents[(vent.Y1, k)]++;
+                }
+            }
+            else
+            {
+                var (startX, startY, endX, endY, modX, modY) = (0, 0, 0, 0, 0, 0);
+                if (vent.Y2 > vent.Y1 && vent.X2 > vent.X1 ||
+                    vent.Y2 < vent.Y1 && vent.X2 < vent.X1)
+                {
+                    startX = Math.Min(vent.X1, vent.X2);
+                    startY = Math.Min(vent.Y1, vent.Y2);
+                    endX = Math.Max(vent.X1, vent.X2);
+                    endY = Math.Max(vent.Y1, vent.Y2);
+                    modX = 1;
+                    modY = 1;
+                }
+                else if (vent.Y2 > vent.Y1 && vent.X2 < vent.X1 ||
+                         vent.Y2 < vent.Y1 && vent.X2 > vent.X1)
+                {
+                    startX = Math.Max(vent.X1, vent.X2);
+                    startY = Math.Min(vent.Y1, vent.Y2);
+                    endX = Math.Min(vent.X1, vent.X2);
+                    endY = Math.Max(vent.Y1, vent.Y2);
+                    modX = -1;
+                    modY = 1;
+                }
+                else
+                {
+                    continue;
+                }
+
+                for (var (x, y) = (startX, startY); x != endX + modX && y != endY + modY; x += modX, y += modY)
+                {
+                    AllVents[(y, x)]++;
                 }
             }
         }
