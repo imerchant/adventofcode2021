@@ -19,6 +19,21 @@ public class Day07Solutions
         crabs.FuelToMoveTos.MinBy(x => x.Value).Value.Should().Be(355989);
     }
 
+    [Fact]
+    public void Puzzle1_FindRealCheapestCost()
+    {
+        var crabs = new Crabs(Input.Day07);
+        var min = crabs.Positions.Min();
+        var max = crabs.Positions.Max();
+
+        for (var k = min; k <= max; ++k)
+        {
+            crabs.GetRealCostToMoveTo(k);
+        }
+
+        crabs.FuelToMoveTos.MinBy(x => x.Value).Value.Should().Be(102245489L);
+    }
+
     public const string PuzzleExample = @"16,1,2,0,4,2,7,1,2,14";
 
     [Theory]
@@ -46,5 +61,15 @@ public class Day07Solutions
         }
 
         crabs.FuelToMoveTos.MinBy(x => x.Value).Value.Should().Be(37);
+    }
+
+    [Theory]
+    [InlineData(5, 168)]
+    [InlineData(2, 206)]
+    public void Puzzle2Example_CalculateCheapestCost(int moveToPosition, long expectedCost)
+    {
+        var crabs = new Crabs(PuzzleExample);
+
+        crabs.GetRealCostToMoveTo(moveToPosition).Should().Be(expectedCost);
     }
 }

@@ -20,4 +20,18 @@ public class Crabs
         }
         return fuel;
     }
+
+    public long GetRealCostToMoveTo(int position)
+    {
+        if (!FuelToMoveTos.TryGetValue(position, out var fuel))
+        {
+            FuelToMoveTos[position] = fuel = Positions.Select(x => RealFuelCost(Math.Abs(position - x))).Sum();
+        }
+        return fuel;
+
+        long RealFuelCost(int distance)
+        {
+            return (distance * (distance + 1)) / 2L;
+        }
+    }
 }
