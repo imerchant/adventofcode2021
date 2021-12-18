@@ -2,45 +2,29 @@ using System.Collections;
 
 namespace AdventOfCode2021.Day06;
 
-public class SchoolOfFish : IEnumerable<LanternFish>
+public class SchoolOfFish
 {
-    public List<LanternFish> Fish { get; }
+    public IDictionary<int, long> Fish { get; } // <Age, Count>
 
     public SchoolOfFish(string input)
     {
-        Fish = input
-            .SplitOn(',')
-            .Select(x => new LanternFish(int.Parse(x)))
-            .ToList();
+        Fish = new DefaultDictionary<int, long>(() => 0L);
+
+        foreach (var fish in input.SplitOn(','))
+        {
+            Fish[int.Parse(fish)]++;
+        }
     }
 
     public void Advance()
     {
-        var newFish = new List<LanternFish>();
-        foreach (var fish in Fish)
+        for (var age = 0; age <= 8; ++age)
         {
-            fish.Advance();
-            if (fish.Age == -1)
-            {
-                fish.Reset();
-                newFish.Add(new LanternFish(8));
-            }
+            Fish[age - 1] = Fish[age];
         }
-        Fish.AddRange(newFish);
+
+        Fish[6] += Fish[-1]; // reset spawning fish
+        Fish[8] = Fish[-1]; // spawn new fish
+        Fish[-1] = 0;
     }
-
-    public IEnumerator<LanternFish> GetEnumerator() => Fish.GetEnumerator();
-
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-}
-
-public class LanternFish
-{
-    public int Age { get; private set; }
-
-    public LanternFish(int startingAge) => Age = startingAge;
-
-    public void Advance() => Age--;
-
-    public void Reset() => Age = 6;
 }
