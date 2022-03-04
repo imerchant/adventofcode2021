@@ -2,7 +2,8 @@
 
 public static partial class Input
 {
-    public const string Day08 = @"dacefg fegab de dceb bedag dae bcgaefd bdacg fbgcad bgedca | acfebgd de dbagc deagcb
+    public const string Day08 =
+@"dacefg fegab de dceb bedag dae bcgaefd bdacg fbgcad bgedca | acfebgd de dbagc deagcb
 cfgda fdebgc bfcdeag dbg afgedb efbad bg cdfeab gabdf abeg | dbg fbedgca gbea gbae
 dgcbe egdafcb bgcfe dgbf cgbafe db ecbfad deb agcde gdbfec | edb bcefgd gdfb edb
 fbgad bgedafc dcageb gcfbed bgdfca ebfag df fdg fcad bcagd | gdecfb dbfgac cgabd fd
