@@ -5,11 +5,12 @@ namespace AdventOfCode2021.Tests;
 public class Day09Solutions
 {
     [Fact]
-    public void Puzzle1_CalculateRisk()
+    public void Puzzle1And2_CalculateRisk_AndBasinSizes()
     {
         var caves = new LavaCave(Input.Day09);
 
         caves.Risk.Should().Be(512);
+        caves.BasinSizes.OrderByDescending(x => x).Take(3).Aggregate(1, (accum, item) => accum * item).Should().Be(1600104);
     }
 
     public const string PuzzleExample =
@@ -26,5 +27,6 @@ public class Day09Solutions
 
         caves.HeightMap.Length.Should().Be(50);
         caves.Risk.Should().Be(15);
+        caves.BasinSizes.OrderByDescending(x => x).Take(3).Aggregate(1, (accum, item) => accum * item).Should().Be(1134);
     }
 }
