@@ -20,7 +20,7 @@ public class Day07Solutions
     }
 
     [Fact]
-    public void Puzzle1_FindRealCheapestCost()
+    public void Puzzle2_FindRealCheapestCost()
     {
         var crabs = new Crabs(Input.Day07);
         var min = crabs.Positions.Min();
