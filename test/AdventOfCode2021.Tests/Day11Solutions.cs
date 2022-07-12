@@ -30,6 +30,25 @@ public class Day11Solutions
         flashes.Should().Be(1546);
     }
 
+    [Fact]
+    public void Puzzle1_FindStepWhereAllFlash()
+    {
+        var cavern = new Cavern(Input.Day11);
+
+        int step;
+        for (step = 1; step <= 500; step++)
+        {
+            var flashes = cavern.Step();
+
+            if (flashes == cavern.Octopuses.Count)
+                break;
+        }
+
+        _output.WriteLine($"After step {step}:");
+        _output.WriteLine(cavern.ToString());
+
+        step.Should().Be(471);
+    }
 
     public const string PuzzleExample =
 @"5483143223
@@ -49,6 +68,26 @@ public class Day11Solutions
 19191
 19991
 11111";
+
+    [Fact]
+    public void PuzzleExample_AllFlashAtStep195()
+    {
+        var cavern = new Cavern(PuzzleExample);
+
+        int step;
+        for (step = 1; step <= 500; step++)
+        {
+            var flashes = cavern.Step();
+
+            if (flashes == cavern.Octopuses.Count)
+                break;
+        }
+
+        _output.WriteLine($"After step {step}:");
+        _output.WriteLine(cavern.ToString());
+
+        step.Should().Be(195);
+    }
 
     [Theory]
     [MemberData(nameof(PrintCavernCases))]
