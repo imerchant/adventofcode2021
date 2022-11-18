@@ -16,7 +16,7 @@ public class Day06Solutions
             school.Advance();
         }
 
-        school.Fish.Values.Sum().Should().Be(expectedCount);
+        school.Count.Should().Be(expectedCount);
     }
 
     public const string PuzzleExample = @"3,4,3,1,2";
@@ -26,16 +26,16 @@ public class Day06Solutions
     {
         var school = new SchoolOfFish(PuzzleExample);
 
-        school.Fish.Values.Sum().Should().Be(5);
+        school.Count.Should().Be(5);
 
         school.Advance();
-        school.Fish.Values.Sum().Should().Be(5);
+        school.Count.Should().Be(5);
 
         school.Advance();
-        school.Fish.Values.Sum().Should().Be(6);
+        school.Count.Should().Be(6);
 
         school.Advance();
-        school.Fish.Values.Sum().Should().Be(7);
+        school.Count.Should().Be(7);
     }
 
     [Theory]
@@ -51,6 +51,6 @@ public class Day06Solutions
             school.Advance();
         }
 
-        school.Fish.Values.Sum().Should().Be(expectedFishCount);
+        school.Count.Should().Be(expectedFishCount);
     }
 }

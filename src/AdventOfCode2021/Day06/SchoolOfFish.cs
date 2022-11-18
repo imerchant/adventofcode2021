@@ -1,18 +1,20 @@
-using System.Collections;
+using System.Numerics;
 
 namespace AdventOfCode2021.Day06;
 
 public class SchoolOfFish
 {
-    public IDictionary<int, long> Fish { get; } // <Age, Count>
+    private readonly IDictionary<int, long> _fish; // <Age, Count>
+
+    public BigInteger Count => _fish.Values.Aggregate(new BigInteger(0), (count, fish) => count + fish);
 
     public SchoolOfFish(string input)
     {
-        Fish = new DefaultDictionary<int, long>(() => 0L);
+        _fish = new DefaultDictionary<int, long>(() => 0L);
 
         foreach (var fish in input.SplitOn(','))
         {
-            Fish[int.Parse(fish)]++;
+            _fish[int.Parse(fish)]++;
         }
     }
 
@@ -20,11 +22,11 @@ public class SchoolOfFish
     {
         for (var age = 0; age <= 8; ++age)
         {
-            Fish[age - 1] = Fish[age];
+            _fish[age - 1] = _fish[age];
         }
 
-        Fish[6] += Fish[-1]; // reset spawning fish
-        Fish[8] = Fish[-1]; // spawn new fish
-        Fish[-1] = 0;
+        _fish[6] += _fish[-1]; // reset spawning fish
+        _fish[8] = _fish[-1]; // spawn new fish
+        _fish[-1] = 0;
     }
 }

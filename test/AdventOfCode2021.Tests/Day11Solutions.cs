@@ -31,7 +31,7 @@ public class Day11Solutions
     }
 
     [Fact]
-    public void Puzzle1_FindStepWhereAllFlash()
+    public void Puzzle2_FindStepWhereAllFlash()
     {
         var cavern = new Cavern(Input.Day11);
 
